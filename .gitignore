@@ -1,0 +1,5 @@
+/data/**
+.DS_Store
+/backend/.gradle/**
+/backend/.idea/**
+/backend/build/**

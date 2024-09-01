@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ResumeManager
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+storage:
+  path: ./data
+
+springdoc:
+  api-docs:
+    enabled: true # Keep this enabled if you still want API docs
+  swagger-ui:
+    enabled: true
+
