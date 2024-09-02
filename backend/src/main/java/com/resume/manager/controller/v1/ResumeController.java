@@ -1,4 +1,4 @@
-package com.resume.manager.controller;
+package com.resume.manager.controller.v1;
 
 import com.resume.manager.exception.ResumeNotFoundException;
 import com.resume.manager.service.ResumeService;

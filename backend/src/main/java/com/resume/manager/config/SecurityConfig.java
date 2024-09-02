@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
@@ -26,11 +28,13 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable()) // (1)
-                .authorizeRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/manager/**")).authenticated()) // 忽略/resume开头的路径
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // (3)
-                .httpBasic(Customizer.withDefaults()) // (4)
+                .csrf(csrf -> csrf.disable()) // Disable CSRF protection if not needed
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/manager.html").authenticated() // Require authentication for manager.html
+                        .requestMatchers("/api/**").authenticated() // Require authentication for /api/** endpoints
+                        .anyRequest().permitAll() // Permit all other requests
+                )
+                .formLogin(withDefaults()) // Use form-based authentication
                 .build();
     }
 
